@@ -12,6 +12,8 @@ fs.writeFileSync('./txt/output.txt', textOut)
 
 //  Non-block async way
 fs.readFile('./txt/start.txt', 'UTF-8', (err: string, data1: string) => {
+    if (err) return console.log('ERROR!!!')
+
     fs.readFile(`./txt/${data1}.txt`, 'UTF-8', (err: string, data2: string) => {
         fs.readFile(`./txt/append.txt`, 'UTF-8', (err: string, data3: string) => {
             fs.writeFile('./txt/final.txt', `${data2}\n${data3}`, 'UTF-8', (err: string) => {
