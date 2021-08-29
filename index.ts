@@ -29,14 +29,27 @@ const url = require('url')
 // console.log('will read file')
 
 //// Server
+const data: string = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'UTF-8')
+const dataObj : object = JSON.parse(data) //Only will executed once, sync toplevel code.
+
+
 const server = http.createServer((req : any, res : any) => {
 const pathName : string = req.url
 
 if(pathName === '/' || pathName === '/overview') {
+
   res.end('This is the OVERVIEW')
+  
 } else if (pathName === '/product') {
+
   res.end('This is the PRODUCT')
+
+} else if (pathName === '/api') {
+
+  res.end(data) // reading the data var witch contains the JSON string.
+
 } else {
+
     res.writeHead(404, {
         'Content-Type': 'text/html',
         'my-own-header': 'hello-world'
