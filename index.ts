@@ -34,7 +34,7 @@ const replaceTemplate = (temp : any, product : any) => {
   output = output.replaceAll('{%IMAGE%}', product.image)
   output = output.replaceAll('{%PRICE%}', product.price)
   output = output.replaceAll('{%FROM%}', product.from)
-  output = output.replaceAll('{%NUTRIENTS%}', product.nutrients)
+  output = output.replaceAll('{%PRODUCNUTRIENTSTNAME%}', product.nutrients)
   output = output.replaceAll('{%QUANTITY%}', product.quantity)
   output = output.replaceAll('{%DESCRIPTION%}', product.description)
   output = output.replaceAll('{%ID%}', product.id)
@@ -53,10 +53,13 @@ const data: string = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'UTF-8')
 const dataObj : Array<object> = JSON.parse(data) //Only will executed once, sync toplevel code.
 
 const server = http.createServer((req : any, res : any) => {
-const pathName : string = req.url
+
+  const { query, pathname } = url.parse(req.url, true)
+
+  const pathName : string = req.url
 
   //Overview Page
-if(pathName === '/' || pathName === '/overview') {
+if(pathname === '/' || pathname === '/overview') {
   res.writeHead(200, {'Content-Type': 'text/html'})
   
   const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join('')
@@ -65,12 +68,14 @@ if(pathName === '/' || pathName === '/overview') {
   res.end(output)
   
   // Product Page
-} else if (pathName === '/product') {
-
-  res.end('This is the PRODUCT')
+} else if (pathname === '/product') {
+  const product = dataObj[query.id] //chamando um objeto especifico baseado num array de de objs.
+  res.writeHead(200, {'Content-Type': 'text/html'})
+  const output = replaceTemplate(tempProduct, product)
+  res.end(output)
 
   //API
-} else if (pathName === '/api') {
+} else if (pathname === '/api') {
   res.writeHead(200, {'Content-Type': 'applicaton/json'})
   res.end(data) // reading the data var witch contains the JSON string.
 
