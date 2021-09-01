@@ -1,9 +1,9 @@
 const fs = require('fs') 
 const http = require('http')
 const url = require('url')
+const replaceTemplate = require('./modules/replaceTemplate')
 
 //// Files
-
 // // Blocking, sync way
 // const textIn: string = fs.readFileSync('./txt/input.txt', 'UTF-8')
 
@@ -29,23 +29,6 @@ const url = require('url')
 // console.log('will read file')
 
 //// Server
-const replaceTemplate = (temp : any, product : any) => {
-  let output = temp.replaceAll('{%PRODUCTNAME%}', product.productName)
-  output = output.replaceAll('{%IMAGE%}', product.image)
-  output = output.replaceAll('{%PRICE%}', product.price)
-  output = output.replaceAll('{%FROM%}', product.from)
-  output = output.replaceAll('{%PRODUCNUTRIENTSTNAME%}', product.nutrients)
-  output = output.replaceAll('{%QUANTITY%}', product.quantity)
-  output = output.replaceAll('{%DESCRIPTION%}', product.description)
-  output = output.replaceAll('{%ID%}', product.id)
-
-  if(!product.organic) {
-    output = output.replace(/{%NOTORGANIC%}/g, 'not-organic')
-  }
-
-  return output
-}
-
 const tempOverview: string = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'UTF-8')
 const tempCard: string = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'UTF-8')
 const tempProduct: string = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'UTF-8')
