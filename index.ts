@@ -34,7 +34,11 @@ const tempOverview: string = fs.readFileSync(`${__dirname}/templates/template-ov
 const tempCard: string = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'UTF-8')
 const tempProduct: string = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'UTF-8')
 const data: string = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'UTF-8')
-const dataObj : Array<object> = JSON.parse(data) //Only will executed once, sync toplevel code.
+const dataObj : any = JSON.parse(data) //Only will executed once, sync toplevel code.
+
+const slugs = dataObj.map((el: { productName: any }) => slugify(el.productName, {lower: true}))
+console.log(slugs)
+
 
 const server = http.createServer((req : any, res : any) => {
 
@@ -46,7 +50,7 @@ const server = http.createServer((req : any, res : any) => {
 if(pathname === '/' || pathname === '/overview') {
   res.writeHead(200, {'Content-Type': 'text/html'})
   
-  const cardsHtml = dataObj.map(el => replaceTemplate(tempCard, el)).join('')
+  const cardsHtml = dataObj.map((el: any) => replaceTemplate(tempCard, el)).join('')
   const output = tempOverview.replace('{%PRODUCT_CARDS%}',cardsHtml)
 
   res.end(output)
