@@ -8,5 +8,22 @@
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.24",
     "ts-standard": "^10.0.0"
-  }
+  },
+  "name": "starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielselga/node-farm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielselga/node-farm/issues"
+  },
+  "homepage": "https://github.com/danielselga/node-farm#readme",
+  "description": ""
 }
