@@ -30,13 +30,13 @@ const slugify = require('slugify')
 // console.log('will read file')
 
 //// Server
-const tempOverview: string = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'UTF-8')
-const tempCard: string = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'UTF-8')
-const tempProduct: string = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'UTF-8')
-const data: string = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'UTF-8')
+const tempOverview : string = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'UTF-8')
+const tempCard : string = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'UTF-8')
+const tempProduct : string = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'UTF-8')
+const data : string = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'UTF-8')
 const dataObj : any = JSON.parse(data) //Only will executed once, sync toplevel code.
 
-const slugs = dataObj.map((el: { productName: any }) => slugify(el.productName, {lower: true}))
+const slugs = dataObj.map((el : { productName : any }) => slugify(el.productName, {lower: true}))
 console.log(slugs)
 
 
